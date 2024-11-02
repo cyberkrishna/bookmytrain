@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Quote</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+<div class="navbar">
+  <img src="kasperlogo.png" height="60" width="140" class="companylogo">
+</div>
+
+<div class="container">
+    <h3 class="getquotetext">Get Quote</h3>
+
+    <div class="blocks">
+        <!-- Left Section -->
+        <div class="left">
+            <div class="triptype">
+                <button type="button" class="one-way-button">One-Way</button>
+            </div>
+            <p>From</p>
+            <div class="select">
+                <div class="selectBtn" data-type="firstOption"><i class="fas fa-map-marker-alt"></i>New Delhi (NDLS)</div>
+                <div class="selectDropdown">
+                    <div class="option" data-type="firstOption"><i class="fas fa-map-marker-alt"></i>New Delhi (NDLS)</div>
+                    <div class="option" data-type="secondOption"><i class="fas fa-map-marker-alt"></i>Mumbai (CSTM)</div>
+                    <div class="option" data-type="thirdOption"><i class="fas fa-map-marker-alt"></i>Bangalore (SBC)</div>
+                    <div class="option" data-type="fourthOption"><i class="fas fa-map-marker-alt"></i>Kolkata (HWH)</div>
+                </div>
+            </div>
+
+            <p>To</p>
+            <div class="select">
+                <div class="selectBtn" data-type="firstOption"><i class="fas fa-map-marker-alt"></i>Mumbai (CSTM)</div>
+                <div class="selectDropdown">
+                    <div class="option" data-type="firstOption"><i class="fas fa-map-marker-alt"></i>Mumbai (CSTM)</div>
+                    <div class="option" data-type="secondOption"><i class="fas fa-map-marker-alt"></i>New Delhi (NDLS)</div>
+                    <div class="option" data-type="thirdOption"><i class="fas fa-map-marker-alt"></i>Chennai (MAS)</div>
+                    <div class="option" data-type="fourthOption"><i class="fas fa-map-marker-alt"></i>Jaipur (JP)</div>
+                </div>
+            </div>
+
+            <p>Journey Date</p>
+            <div class="date-input-container">
+                <i class="fas fa-calendar-alt date-icon"></i>
+                <input class="date-input-field" type="text" id="journeyDatepicker" placeholder="dd-mm-yyyy">
+            </div>
+
+            <p>Class</p>
+            <div class="select">
+                <div class="selectBtn" data-type="firstOption"><i class="fas fa-bed"></i> Sleeper (SL)</div>
+                <div class="selectDropdown">
+                    <div class="option" data-type="firstOption"><i class="fas fa-bed"></i>AC 1 Tier (1A)</div>
+                    <div class="option" data-type="secondOption"><i class="fas fa-bed"></i>AC 2 Tier (2A)</div>
+                    <div class="option" data-type="thirdOption"><i class="fas fa-bed"></i>AC 3 Tier (3A)</div>
+                    <div class="option" data-type="fourthOption"><i class="fas fa-bed"></i>Sleeper (SL)</div>
+                </div>
+            </div>
+
+            <p>Passengers</p>
+            <div class="select">
+                <div class="selectBtn" data-type="firstOption"><i class="fas fa-user"></i>1 Adult</div>
+                <div class="selectDropdown">
+                    <div class="option" data-type="firstOption"><i class="fas fa-user"></i>1 Adult</div>
+                    <div class="option" data-type="secondOption"><i class="fas fa-user"></i>2 Adults</div>
+                    <div class="option" data-type="thirdOption"><i class="fas fa-user"></i>1 Adult, 1 Child</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section for Displaying Journey Details -->
+        <div class="right">
+            <div class="trip-detail-container">
+                <div class="one-way-container">
+                    <h3 class="trip-detail-title">Journey Details</h3>
+                    <table id="journeyDetails">
+                        <tr><td>From</td><td id="fromStation">New Delhi (NDLS)</td></tr>
+                        <tr><td>To</td><td id="toStation">Mumbai (CSTM)</td></tr>
+                        <tr><td>Departure</td><td id="departureTime">2024-12-25 06:00 AM</td></tr>
+                        <tr><td>Class</td><td id="travelClass">Sleeper (SL)</td></tr>
+                        <tr><td>Passengers</td><td id="passengerInfo">1 Adult</td></tr>
+                    </table>
+                </div>
+                <hr>
+                <div class="price-container">
+                    <h3 class="trip-detail-title">Price</h3>
+                    <table id="priceDetails">
+                        <tr><td>Base Price</td><td id="basePrice">INR 800</td></tr>
+                        <tr><td>Tax</td><td id="tax">INR 80</td></tr>
+                        <tr><td>Total Price</td><td id="totalPrice">INR 880</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="buttons">
+        <button type="button" id="getQuoteBtn">Get Quote</button>
+        <button type="button" id="bookTicketsBtn">Book Tickets</button>
+        <button id="sortAscBtn" type="button">Sort by Price (Low to High)</button>
+        <button id="sortDescBtn" type="button">Sort by Price (High to Low)</button>
+    </div>
+</div>
+
+<!-- JavaScript file -->
+<script src="./script.js"></script>
+
+</body>
+</html>
