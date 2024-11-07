@@ -25,15 +25,23 @@ document.querySelectorAll('.seat').forEach(seat => {
 });
 
 // Button to book seats
+// document.getElementById('bookSeats').addEventListener('click', () => {
+//   if (selectedSeats.size > 0) {
+//     alert(`Seats booked: ${Array.from(selectedSeats).join(', ')}`);
+//     selectedSeats.forEach(seatId => {
+//       document.getElementById(seatId).classList.add('occupied');
+//       document.getElementById(seatId).classList.remove('selected');
+//     });
+//     selectedSeats.clear();
+//   } else {
+//     alert('Please select at least one seat to book.');
+//   }
+// });
 document.getElementById('bookSeats').addEventListener('click', () => {
   if (selectedSeats.size > 0) {
-    alert(`Seats booked: ${Array.from(selectedSeats).join(', ')}`);
-    selectedSeats.forEach(seatId => {
-      document.getElementById(seatId).classList.add('occupied');
-      document.getElementById(seatId).classList.remove('selected');
-    });
-    selectedSeats.clear();
+      sessionStorage.setItem('selectedSeats', JSON.stringify(Array.from(selectedSeats)));
+      window.location.href = "payment.html"; // Redirect to payment page
   } else {
-    alert('Please select at least one seat to book.');
+      alert('Please select at least one seat to book.');
   }
 });

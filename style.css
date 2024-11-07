@@ -290,5 +290,50 @@ body .container .buttons button {
 .sort-buttons button:hover {
   background-color: #1a3b8e;
 }
+.form-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.form-container h2 {
+  color: #2348AF;
+  margin-bottom: 20px;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-container button {
+  width: 100%;
+  background-color: #2348AF;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.form-container p {
+  margin-top: 15px;
+}
+
+.form-container a {
+  color: #2348AF;
+  text-decoration: none;
+}
+
+.form-container a:hover {
+  text-decoration: underline;
+}
 
 /*# sourceMappingURL=style.css.map */

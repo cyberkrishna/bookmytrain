@@ -133,9 +133,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Redirect functionality for Book Tickets button
     document.querySelector(".buttons button:nth-child(2)").addEventListener("click", () => {
         console.log("Book Tickets button clicked");
-        window.location.href = "booking.html"; // Redirect to booking page
+        window.location.href = "seat.html"; // Redirect to booking page
     });
 
     // Initial display of quotes
     displayQuotes();
 });
+
