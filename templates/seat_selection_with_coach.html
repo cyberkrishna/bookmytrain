@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <title>Select Seats for Coach {{ coach_id }}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #ff4d4f; /* redRail theme color */
+      color: white;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-welcome {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 14px;
+    }
+
+    .user-welcome span {
+      margin-right: 10px;
+    }
+
+    .logout-btn {
+      padding: 8px 15px;
+      background-color: #ffffff;
+      border: none;
+      color: #ff4d4f;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .logout-btn:hover {
+      background-color: #f8d7da;
+    }
+
+    /* Vertical Seat Layout */
+    .seat-map {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 40px;
+      padding: 0 20px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Seat Styles */
+    .seat {
+      width: 50px;
+      height: 50px;
+      background-color: #e74c3c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+
+    .seat:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .available {
+      background-color: grey;
+    }
+
+    .occupied {
+      background-color: #ffbaba;
+      cursor: not-allowed;
+    }
+
+    .selected {
+      background-color: #fa4d4f;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .booked {
+      background-color: #f8d7da; /* Light red for booked seats */
+      cursor: not-allowed;
+    }
+
+    .seat-number {
+      font-size: 14px;
+      color: white;
+      font-weight: 500;
+    }
+
+    /* Seat Info Icons */
+    .seat-info {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 30px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .info-icon {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    .available-icon {
+      color: #7f8c8d; /* Grey for available seats */
+    }
+
+    .selected-icon {
+      color: #fa4d4f; /* Red for selected seats */
+    }
+
+    .booked-icon {
+      color: #f8d7da; /* Light red for booked seats */
+    }
+
+    /* Submit Button Container */
+    .submit-btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .submit-btn {
+      background-color: #ff4d4f;
+      color: white;
+      padding: 15px 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 15px;
+      font-size: 14px;
+      width: 15%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.9s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #d9363e;
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-left">
+      <img src="https://th.bing.com/th/id/R.8fe9c522e59aef0d241d8c890547aac0?rik=s66evkqT2lA7DA&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f6%2fTrain-Transparent-Background.png&ehk=PvP8QHEgWEgoD%2bvYIDtfv7envZm%2fxHOCx%2bbqaNHh9sg%3d&risl=&pid=ImgRaw&r=0" alt="Logo" class="logo">
+      <span class="brand">BookMyTrain</span>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Home</a>
+      <div class="user-info">
+        <span class="user-welcome">Welcome : <span>{{username}}</span></span>
+        <form action="/logout"><button class="logout-btn">Logout</button></form>
+      </div>
+    </nav>
+  </header>
+
+  <h1>Select Seats for Coach {{ coach_id }} of Train {{ train_id }}</h1>
+
+  <div class="seat-map">
+    {% for seat in seats %}
+      <div class="seat
+          {% if seat[2] == 1 %}
+            available seat-{{ seat[1] }} 
+          {% elif seat[1] in booked_seats %}
+            booked 
+          {% else %} 
+            occupied 
+          {% endif %}"
+          data-seat-number="{{ seat[1] }}"
+          onclick="selectSeat(this)">
+        <span class="seat-number">{{ seat[1] }}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Seat information -->
+  <div class="seat-info">
+    <div class="info-item">
+      <i class="fas fa-circle info-icon available-icon"></i>
+      <span class="info-text">Available Seats</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-circle info-icon selected-icon"></i>
+      <span class="info-text">Selected Seat</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-circle info-icon booked-icon"></i>
+      <span class="info-text">Booked Seats</span>
+    </div>
+  </div>
+
+  <!-- Form for submitting selected seat -->
+  <form action="/selected_seats/{{ train_id }}/{{ coach_id }}" method="POST">
+    <input type="hidden" name="selected_seats" id="selected-seats" value="">
+    <!-- Submit Button Container -->
+    <div class="submit-btn-container">
+      <button type="submit" class="submit-btn">Proceed to Payment</button>
+    </div>
+  </form>
+
+  <script>
+    let selectedSeats = [];
+
+    function selectSeat(seat) {
+      const seatNumber = seat.getAttribute('data-seat-number');
+
+      // Prevent selection if the seat is booked
+      if (seat.classList.contains('booked') || seat.classList.contains('occupied')) {
+        return;
+      }
+
+      // Deselect the currently selected seat if any
+      const currentlySelected = document.querySelector('.seat.selected');
+      if (currentlySelected && currentlySelected !== seat) {
+        currentlySelected.classList.remove('selected');
+        const seatNumberToRemove = currentlySelected.getAttribute('data-seat-number');
+        selectedSeats = selectedSeats.filter(s => s !== seatNumberToRemove);
+      }
+
+      // Toggle selection
+      seat.classList.toggle('selected');
+      
+      if (seat.classList.contains('selected')) {
+        selectedSeats.push(seatNumber);
+      } else {
+        selectedSeats = selectedSeats.filter(s => s !== seatNumber);
+      }
+
+      // Update the hidden input field with selected seats
+      document.getElementById('selected-seats').value = selectedSeats.join(',');
+    }
+  </script>
+</body>
+</html>

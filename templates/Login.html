@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <style>
+        
+/* Login Modal Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://img.freepik.com/premium-photo/red-background-with-picture-train-line-middle_1042628-73542.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    backdrop-filter: blur(5px); /* Blur effect */
+    z-index: -1;
+}
+
+.login-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-modal-content {
+    background: rgba(0, 0, 0, 0.8); /* Dominant black background with transparency */
+    padding: 30px;
+    border-radius: 10px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9); /* More pronounced shadow */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border effect */
+}
+
+.login-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff; /* White text for contrast */
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Subtle input border */
+    border-radius: 5px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.2); /* Transparent input background */
+    color: #fff; /* White text */
+}
+
+.login-input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Subtle placeholder text */
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.login-submit-btn {
+    background: #ff4d4f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.login-submit-btn:hover {
+    background: #d9363e;
+}
+
+.create-account-link {
+    font-size: 14px;
+    color: #ff4d4f;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.create-account-link:hover {
+    text-decoration: underline;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7); /* Subtle white text */
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: #ff4d4f;
+    text-decoration: underline;
+}
+.alert-box {
+    background-color: #f8d7da;
+    color: #842029;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c2c7;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-message {
+    margin: 0;
+    font-size: 14px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="login-modal">
+        <div class="login-modal-content">
+            <h2 class="login-title">Sign In</h2>
+            {% if is_error %}
+            <div class="alert-box">
+                <p class="alert-message">{{ message }}</p>
+            </div>
+            {% endif %}
+            <form id="login-form" action="/login" method="post">
+                <input required name="email" type="email" placeholder="Email" class="login-input">
+                <input required name="password" type="password" placeholder="Password" class="login-input">
+                
+                <!-- hCaptcha Widget -->
+                <div class="h-captcha" data-sitekey="3cf8afa6-9888-45d2-b5fe-ab2cc38caadc"></div>
+                
+                <div class="button-container">
+                    <button type="submit" class="login-submit-btn">Sign In</button>
+                    <a href="/signup" class="create-account-link">Create New Account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include hCaptcha JavaScript -->
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+
+    <!-- CAPTCHA Validation Script -->
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            // Get the hCaptcha response
+            const captchaResponse = hcaptcha.getResponse();
+
+            // Check if CAPTCHA is completed
+            if (!captchaResponse) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please complete the CAPTCHA to proceed.');
+            }
+        });
+    </script>
+</body>
+</html>

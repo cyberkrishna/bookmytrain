@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> 
+  <title>Ticket Booking - {{ train.train_name }} ({{ train.train_number }})</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    .container {
+      width: 70%;
+      margin: 20px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .train-details {
+      margin-bottom: 20px;
+    }
+    .train-details p {
+      font-size: 16px;
+      color: #555;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-size: 14px;
+      color: #333;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .form-group input[type="submit"] {
+      background-color: #ff4d4f;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .form-group input[type="submit"]:hover {
+      background-color: #d9363e;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="number"]:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff4d4f;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Book Your Ticket for {{ train.train_name }} ({{ train.train_number }})</h1>
+
+    <div class="train-details">
+      <p><strong>Source Station:</strong> {{ train.source_station }}</p>
+      <p><strong>Destination Station:</strong> {{ train.destination_station }}</p>
+      <p><strong>Departure Time:</strong> {{ train.departure_time }}</p>
+      <p><strong>Arrival Time:</strong> {{ train.arrival_time }}</p>
+    </div>
+
+    <form action="/confirm_booking/{{ train.train_id }}" method="POST">
+      <div class="form-group">
+        <label for="passenger_name">Passenger Name:</label>
+        <input type="text" id="passenger_name" name="passenger_name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="passenger_age">Age:</label>
+        <input type="number" id="passenger_age" name="passenger_age" required min="1">
+      </div>
+
+      <div class="form-group">
+        <label for="passenger_gender">Gender:</label>
+        <select id="passenger_gender" name="passenger_gender" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="seat_class">Seat Class:</label>
+        <select id="seat_class" name="seat_class" required>
+          <option value="Sleeper">Sleeper</option>
+          <option value="AC1">AC1</option>
+          <option value="AC2">AC2</option>
+          <option value="AC3">AC3</option>
+          <option value="General">General</option>
+          <option value="ChairCar">ChairCar</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <input type="submit" value="Book Ticket">
+      </div>
+
+      {% if error %}
+        <p class="error">{{ error }}</p>
+      {% endif %}
+    </form>
+  </div>
+
+</body>
+</html>

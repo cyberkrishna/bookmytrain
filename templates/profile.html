@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+   * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body {
+  font-family: 'Poppins', sans-serif; 
+
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #ff4d4f; /* redRail theme color */
+  color: white;
+  width: 100%; /* Ensure full width */
+  position: relative;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-welcome {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+}
+
+.user-welcome span {
+  margin-right: 10px;
+}
+
+.logout-btn,
+.logout-btn {
+  padding: 8px 15px;
+  background-color: #ffffff;
+  border: none;
+  color: #ff4d4f;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover,
+.logout-btn:hover {
+  background-color: #f8d7da;
+}
+
+    .profile-container {
+      margin-top: 80px;
+      padding: 20px;
+    }
+    .profile-info, .booking-info {
+      margin-bottom: 30px;
+    }
+    .profile-info table, .booking-info table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .logout-btn {
+      padding: 8px 15px;
+      background-color: #ffffff;
+      border: none;
+      color: #ff4d4f;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background-color: #f8d7da;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-left">
+      <img src="https://th.bing.com/th/id/R.8fe9c522e59aef0d241d8c890547aac0?rik=s66evkqT2lA7DA&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f6%2fTrain-Transparent-Background.png&ehk=PvP8QHEgWEgoD%2bvYIDtfv7envZm%2fxHOCx%2bbqaNHh9sg%3d&risl=&pid=ImgRaw&r=0" alt="Logo" class="logo">
+      <span class="brand">BookMyTrain</span>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/profile" class="nav-link">Profile</a>
+     
+      <div class="user-info">
+        <span class="user-welcome"><span>{{username}}</span></span>
+        <form action="/logout"><button class="logout-btn" >Logout</button></form>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Profile Section -->
+  <div class="profile-container">
+    <div class="profile-info">
+      <h2>User Profile</h2>
+      <table>
+        <tr>
+          <th>Username</th>
+          <td>{{ user_details[0] }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ user_details[1] }}</td>
+        </tr>
+        <tr>
+          <th>Phone Number</th>
+          <td>{{ user_details[2] }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="booking-info">
+      <h2>My Bookings</h2>
+      {% if bookings %}
+      <table>
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Train Number</th>
+            <th>Train Name</th>
+            <th>Coach Type</th>
+            <th>Journey Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+          <tr>
+            <td>{{ booking[0] }}</td>
+            <td>{{ booking[1] }}</td>
+            <td>{{ booking[2] }}</td>
+            <td>{{ booking[3] }}</td>
+            <td>{{ booking[4] }}</td>
+            <td>{{ booking[5] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No bookings found.</p>
+      {% endif %}
+    </div>
+  </div>
+
+</body>
+</html>

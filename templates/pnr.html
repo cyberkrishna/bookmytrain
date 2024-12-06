@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> 
+  <title>redRail: Train Ticket Booking</title>
+  <!-- Include CSS files -->
+ <style>/* Header Styles */
+   /* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body {
+  font-family: 'Poppins', sans-serif; 
+
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #ff4d4f; /* redRail theme color */
+  color: white;
+  width: 100%; /* Ensure full width */
+  position: relative;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-welcome {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+}
+
+.user-welcome span {
+  margin-right: 10px;
+}
+
+.logout-btn,
+.logout-btn {
+  padding: 8px 15px;
+  background-color: #ffffff;
+  border: none;
+  color: #ff4d4f;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover,
+.logout-btn:hover {
+  background-color: #f8d7da;
+}
+
+/* Hero Section */
+.hero-section {
+  background: url("https://th.bing.com/th/id/R.9a8e8cf7758dd7e03f11d8c33c9d7467?rik=mSfYvNs8BoKgJg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2014%2f05%2ftrain-pictures-24.jpg&ehk=EvZdE3MMuYf8sQNgYI6Foc%2fcPAL0g7OCdt27ru%2fbDng%3d&risl=&pid=ImgRaw&r=0") 
+    no-repeat center center;
+  background-size: cover;
+  text-align: center;
+  padding: 80px 20px;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Overlay for better contrast */
+  z-index: -1;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+/* Features Section */
+.features-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px auto;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature {
+  text-align: center;
+  max-width: 250px;
+}
+
+.feature-icon {
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.feature-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.feature-description {
+  font-size: 14px;
+  color: #555;
+}
+/*pnr search */
+.train-search-container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  max-width: 1000px;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-buttons button {
+  background: none;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  transition: 0.3s;
+}
+
+.tab-buttons button.active-tab {
+  background: #ff4d4f;
+  color: white;
+  border-color: #ff4d4f;
+}
+
+.tab-buttons button:hover {
+  background: #f8d7da;
+  color: #ff4d4f;
+}
+/* Search Container */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;  /* Light background to match the theme */
+  padding: 15px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+/* Search Field */
+.search-field {
+  flex-grow: 1;
+  position: relative;
+}
+
+.search-field input {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.search-field input:focus {
+  border-color: #ff4d4f;  /* Red color to highlight the active input field */
+}
+
+/* Search Button */
+.search-button {
+  background-color: #ff4d4f;  /* Red button */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;  /* Space between input and button */
+}
+
+.search-button:hover {
+  background-color: #d9363e;  /* Darker red on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+}
+
+
+/* Footer Section */
+.footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer-links {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Result Container */
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+.result-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.result-container th,
+.result-container td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.result-container th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.result-container tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Headings */
+.result-container h2 {
+  margin: 10px 0;
+  color: #333;
+  text-align: center;
+}
+
+
+
+    </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-left">
+      <img src="https://th.bing.com/th/id/R.8fe9c522e59aef0d241d8c890547aac0?rik=s66evkqT2lA7DA&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f6%2fTrain-Transparent-Background.png&ehk=PvP8QHEgWEgoD%2bvYIDtfv7envZm%2fxHOCx%2bbqaNHh9sg%3d&risl=&pid=ImgRaw&r=0" alt="Logo" class="logo">
+      <span class="brand">BookMyTrain</span>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Home</a>
+     
+      <div class="user-info">
+        
+        <form action="/logout"><button class="logout-btn" >Logout</button></form>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title">BookMyTrain : Train Ticket Booking</h1>
+    <p class="hero-subtitle">Authorized by IRCTC</p>
+  </section>
+
+ 
+
+ <!-- Train Search Section -->
+<!-- Train Search Section -->
+<section class="train-search-container">
+  
+    <div class="tab-buttons">
+      <form action="/"><button >Book Train Tickets</button></form>
+      <form action="/pnr"><button class="active-tab">Check PNR Status</button></form>
+    </div>
+    <form method="POST" action='/check_pnr'>
+      <div class="search-container">
+        <div class="search-field">
+          <input type="text" id="train-search-input" name="booking_id" placeholder="Search Trains..." required>
+        </div>
+        <button type="submit" class="search-button">Search</button>
+      </div>
+    </form>
+    
+  </section>
+</section>
+
+{% if error %}
+<div class="result-container">
+  <p style="color: red;">{{ error }}</p>
+</div>
+{% endif %}
+
+{% if booking_details %}
+<div class="result-container">
+  <h2>Booking Details</h2>
+  <table>
+    <tr>
+      <th>Booking ID</th>
+      <td>{{ booking_details[0][0] }}</td>
+    </tr>
+    <tr>
+      <th>Train Number</th>
+      <td>{{ booking_details[0][1] }}</td>
+    </tr>
+    <tr>
+      <th>Train Name</th>
+      <td>{{ booking_details[0][2] }}</td>
+    </tr>
+    <tr>
+      <th>Coach Type</th>
+      <td>{{ booking_details[0][3] }}</td>
+    </tr>
+    <tr>
+      <th>Status</th>
+      <td>{{ booking_details[0][4] }}</td>
+    </tr>
+    <tr>
+      <th>Journey Date</th>
+      <td>{{ booking_details[0][5] }}</td>
+    </tr>
+  </table>
+
+  <h2>Passenger Details</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Seat Number</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for passenger in booking_details %}
+      <tr>
+        <td>{{ passenger[6] }}</td>
+        <td>{{ passenger[7] }}</td>
+        <td>{{ passenger[8] }}</td>
+        <td>{{ passenger[9] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+ <!-- Features Section -->
+ <section class="features-section">
+    <div class="feature">
+      <img src="https://pnghq.com/wp-content/uploads/ticket-icon-tickets-vector-icon-85406-1024x854.png" alt="Feature 1" class="feature-icon">
+      <h3 class="feature-title">Book Train Tickets</h3>
+      <p class="feature-description">Easily book train tickets for your journey.</p>
+    </div>
+    <div class="feature">
+      <img src="https://www.confirmtkt.com/img/home/icons/ic-web-confirm-ticket@3x.png" alt="Feature 2" class="feature-icon">
+      <h3 class="feature-title">Check PNR Status</h3>
+      <p class="feature-description">Stay updated with your ticket confirmation.</p>
+    </div>
+    <div class="feature">
+      <img src="https://png.pngtree.com/png-vector/20220621/ourmid/pngtree-car-seat-icon-slat-armrest-png-image_5224186.png" alt="Feature 3" class="feature-icon">
+      <h3 class="feature-title">Seat Selection</h3>
+      <p class="feature-description">Select your prefered seat and travel with ease</p>
+    </div>
+  </section>
+  <!-- Footer Section -->
+  <footer class="footer">
+    <p>&copy; 2024 redRail. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="#" class="footer-link">Privacy Policy</a>
+      <a href="#" class="footer-link">Terms of Service</a>
+      <a href="#" class="footer-link">Contact Us</a>
+    </div>
+  </footer>
+
+  <!-- Include JavaScript for dynamic station suggestions -->
+  
+</body>
+</html>
+

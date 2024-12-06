@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> 
+  <title>redRail: Train Ticket Booking</title>
+  <!-- Include CSS files -->
+ <style>/* Header Styles */
+   /* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body {
+  font-family: 'Poppins', sans-serif; 
+
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #ff4d4f; /* redRail theme color */
+  color: white;
+  width: 100%; /* Ensure full width */
+  position: relative;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-welcome {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+}
+
+.user-welcome span {
+  margin-right: 10px;
+}
+
+.logout-btn,
+.logout-btn {
+  padding: 8px 15px;
+  background-color: #ffffff;
+  border: none;
+  color: #ff4d4f;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover,
+.logout-btn:hover {
+  background-color: #f8d7da;
+}
+
+/* Hero Section */
+.hero-section {
+  background: url("https://th.bing.com/th/id/R.9a8e8cf7758dd7e03f11d8c33c9d7467?rik=mSfYvNs8BoKgJg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2014%2f05%2ftrain-pictures-24.jpg&ehk=EvZdE3MMuYf8sQNgYI6Foc%2fcPAL0g7OCdt27ru%2fbDng%3d&risl=&pid=ImgRaw&r=0") 
+    no-repeat center center;
+  background-size: cover;
+  text-align: center;
+  padding: 80px 20px;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Overlay for better contrast */
+  z-index: -1;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+/* Features Section */
+.features-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px auto;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature {
+  text-align: center;
+  max-width: 250px;
+}
+
+.feature-icon {
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.feature-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.feature-description {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Train Search Section */
+.train-search-container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  max-width: 1000px;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-buttons button {
+  background: none;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  transition: 0.3s;
+}
+
+.tab-buttons button.active-tab {
+  background: #ff4d4f;
+  color: white;
+  border-color: #ff4d4f;
+}
+
+.tab-buttons button:hover {
+  background: #f8d7da;
+  color: #ff4d4f;
+}
+
+.search-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  flex: 1;
+  max-width: 250px;
+  position: relative;
+}
+
+.search-field input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  flex: 1;
+}
+
+.search-field .icon {
+  font-size: 18px;
+  color: #888;
+}
+
+.search-button {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-button:hover {
+  background: #d9363e;
+}
+
+/* Footer Section */
+.footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer-links {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .features-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .feature {
+    max-width: 100%;
+  }
+
+  .search-box {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .search-field {
+    max-width: 100%;
+  }
+
+  .search-button {
+    width: 100%;
+    padding: 12px 0;
+  }
+}.suggestions-list {
+  display: none; /* Hidden by default */
+  position: absolute;
+  max-height: 200px;
+  width: 100%;
+  margin-top: 5px;
+  padding: 0;
+  list-style-type: none;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.suggestions-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f1f1f1;
+}
+
+.suggestions-list .error {
+  color: red;
+  padding: 10px;
+  text-align: center;
+}
+
+
+    </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-left">
+      <img src="https://th.bing.com/th/id/R.8fe9c522e59aef0d241d8c890547aac0?rik=s66evkqT2lA7DA&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f6%2fTrain-Transparent-Background.png&ehk=PvP8QHEgWEgoD%2bvYIDtfv7envZm%2fxHOCx%2bbqaNHh9sg%3d&risl=&pid=ImgRaw&r=0" alt="Logo" class="logo">
+      <span class="brand">BookMyTrain</span>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/profile" class="nav-link">Profile</a>
+     
+      <div class="user-info">
+        <span class="user-welcome">Welcome : <span>{{username}}</span></span>
+        <form action="/logout"><button class="logout-btn" >Logout</button></form>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title">BookMyTrain : Train Ticket Booking</h1>
+    <p class="hero-subtitle">Authorized by IRCTC</p>
+  </section>
+
+ 
+
+ <!-- Train Search Section -->
+<!-- Train Search Section -->
+<section class="train-search-container">
+  
+    <div class="tab-buttons">
+      <button class="active-tab">Book Train Tickets</button>
+      <form action="/pnr"> <button>Check PNR Status</button></form>
+    </div>
+    <form method="POST" action="/search_trains">
+      <div class="search-box">
+        <div class="search-field">
+          <span class="icon">🚉</span>
+          <input type="text" id="from-station-input" name="from_station" placeholder="From Station" autocomplete="off" required>
+          <ul id="from-station-suggestions" class="suggestions-list"></ul>
+        </div>
+        <div class="search-field">
+          <span class="icon">🚉</span>
+          <input type="text" id="to-station-input" name="to_station" placeholder="To Station" autocomplete="off" required>
+          <ul id="to-station-suggestions" class="suggestions-list"></ul>
+        </div>
+        <div class="search-field">
+          <span class="icon">📅</span>
+          <input type="date" id="travel-date" name="travel_date" required>
+        </div>
+        <button type="submit" class="search-button">Search Trains</button>
+      </div>
+    </form>
+  </section>
+</section>
+
+
+
+ <!-- Features Section -->
+ <section class="features-section">
+    <div class="feature">
+      <img src="https://pnghq.com/wp-content/uploads/ticket-icon-tickets-vector-icon-85406-1024x854.png" alt="Feature 1" class="feature-icon">
+      <h3 class="feature-title">Book Train Tickets</h3>
+      <p class="feature-description">Easily book train tickets for your journey.</p>
+    </div>
+    <div class="feature">
+      <img src="https://www.confirmtkt.com/img/home/icons/ic-web-confirm-ticket@3x.png" alt="Feature 2" class="feature-icon">
+      <h3 class="feature-title">Check PNR Status</h3>
+      <p class="feature-description">Stay updated with your ticket confirmation.</p>
+    </div>
+    <div class="feature">
+      <img src="https://png.pngtree.com/png-vector/20220621/ourmid/pngtree-car-seat-icon-slat-armrest-png-image_5224186.png" alt="Feature 3" class="feature-icon">
+      <h3 class="feature-title">Seat Selection</h3>
+      <p class="feature-description">Select your prefered seat and travel with ease</p>
+    </div>
+  </section>
+  <!-- Footer Section -->
+  <footer class="footer">
+    <p>&copy; 2024 redRail. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="#" class="footer-link">Privacy Policy</a>
+      <a href="#" class="footer-link">Terms of Service</a>
+      <a href="#" class="footer-link">Contact Us</a>
+    </div>
+  </footer>
+
+  <!-- Include JavaScript for dynamic station suggestions -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fetchSuggestions = (inputId, suggestionsId) => {
+        const input = document.getElementById(inputId);
+        const suggestions = document.getElementById(suggestionsId);
+
+        input.addEventListener("input", () => {
+          const query = input.value.trim();
+
+          if (query.length < 2) {
+            suggestions.innerHTML = "";
+            suggestions.style.display = "none"; // Hide suggestions if query is too short
+            return;
+          }
+
+          fetch(`/get_stations?query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+              suggestions.innerHTML = "";
+              if (data.error) {
+                suggestions.innerHTML = `<li class="error">${data.error}</li>`;
+                suggestions.style.display = "block";
+              } else {
+                data.forEach(station => {
+                  const li = document.createElement("li");
+                  li.textContent = station;
+                  li.addEventListener("click", () => {
+                    input.value = station;
+                    suggestions.innerHTML = "";
+                    suggestions.style.display = "none"; // Hide suggestions after selection
+                  });
+                  suggestions.appendChild(li);
+                });
+                suggestions.style.display = "block"; // Show suggestions
+              }
+            })
+            .catch(error => console.error("Error fetching station suggestions:", error));
+        });
+      };
+
+      fetchSuggestions("from-station-input", "from-station-suggestions");
+      fetchSuggestions("to-station-input", "to-station-suggestions");
+    });
+
+// Handle the form submission and send the data using AJAX
+function searchTrains() {
+  // Get the values from the input fields
+  const fromStation = document.getElementById('from-station-input').value;
+  const toStation = document.getElementById('to-station-input').value;
+  const travelDate = document.getElementById('travel-date').value;
+
+  // Check if all fields are filled
+  if (!fromStation || !toStation || !travelDate) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  // Prepare the data to send in the request
+  const data = {
+    from_station: fromStation,
+    to_station: toStation,
+    travel_date: travelDate
+  };
+
+  // Send the data to the backend via AJAX (POST request)
+  fetch('/search_trains', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data) // Send the data as JSON
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        alert(data.error); // Show error message if no trains are found
+      } else {
+        // Handle the successful response and update the page with train results
+        displayTrainResults(data);
+      }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Function to display the search results
+function displayTrainResults(trains) {
+  const resultsContainer = document.getElementById('train-results');
+  resultsContainer.innerHTML = ''; // Clear any previous results
+
+  // Check if trains were found
+  if (trains.length > 0) {
+    trains.forEach(train => {
+      const trainElement = document.createElement('div');
+      trainElement.classList.add('train-result');
+      trainElement.innerHTML = `
+        <h4>${train.train_name} (${train.train_number})</h4>
+        <p>From: ${train.source_station} To: ${train.destination_station}</p>
+        <p>Departure: ${train.departure_time} Arrival: ${train.arrival_time}</p>
+      `;
+      resultsContainer.appendChild(trainElement);
+    });
+  } else {
+    resultsContainer.innerHTML = `<p>No trains found for the selected route and date.</p>`;
+  }
+}
+
+  </script>
+</body>
+</html>
+

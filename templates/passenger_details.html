@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> 
+
+  <title>Passenger Details</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body {
+  background:#dadada;
+  font-family: 'Poppins', sans-serif; 
+
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #ff4d4f; /* redRail theme color */
+  color: white;
+  width: 100%; /* Ensure full width */
+  position: relative;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-welcome {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+}
+
+.user-welcome span {
+  margin-right: 10px;
+}
+
+.logout-btn,
+.logout-btn {
+  padding: 8px 15px;
+  background-color: #ffffff;
+  border: none;
+  color: #ff4d4f;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover,
+.logout-btn:hover {
+  background-color: #f8d7da;
+}
+
+    /* Main Content Styles */
+    .form-container {
+      background-color:white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px; /* Increased width of the form */
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    .submit-btn {
+      background-color: #ff4d4f;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%; /* Full width for button */
+      font-size: 16px;
+    }
+
+    .submit-btn:hover {
+      background-color: #d9363e;
+    }
+
+    /* Centering content */
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-left">
+      <img src="https://th.bing.com/th/id/R.8fe9c522e59aef0d241d8c890547aac0?rik=s66evkqT2lA7DA&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f6%2fTrain-Transparent-Background.png&ehk=PvP8QHEgWEgoD%2bvYIDtfv7envZm%2fxHOCx%2bbqaNHh9sg%3d&risl=&pid=ImgRaw&r=0" alt="Logo" class="logo">
+      <span class="brand">BookMyTrain</span>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Home</a>
+     
+      <div class="user-info">
+        <span class="user-welcome">Welcome : <span>{{username}}</span></span>
+        <form action="/logout"><button class="logout-btn" >Logout</button></form>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Section -->
+  <div class="form-wrapper">
+    <div class="form-container">
+      <h1>Enter Passenger Details</h1>
+
+      <form action="/confirm_booking/{{ train_id }}/{{ coach_id }}" method="POST">
+        <!-- Hidden input to store the selected seat numbers -->
+        <input type="hidden" name="selected_seats" value="{{ selected_seats | join(',') }}">
+
+        {% for seat_number in selected_seats %}
+          <h3>Passenger Details for Seat {{ seat_number }}</h3>
+
+          <div class="form-group">
+            <label for="passenger_name">Name:</label>
+            <input type="text" id="passenger_name" name="passenger_name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="passenger_age">Age:</label>
+            <input type="number" id="passenger_age" name="passenger_age" required>
+          </div>
+
+          <div class="form-group">
+            <label for="passenger_gender">Gender:</label>
+            <select id="passenger_gender" name="passenger_gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="submit-btn">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
